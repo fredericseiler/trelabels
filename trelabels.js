@@ -7,7 +7,7 @@ $(function() {
   function rebuild() {
     if ($('body').hasClass('body-board-view') && ! $('#trelabels').hasClass('board-header-btn'))
     {
-      $('.board-header-btns.left').append(button);
+      $('.board-header-btns.mod-left').append(button);
       
       if ($('body').hasClass('trelabels'))
       {
