@@ -1,0 +1,15 @@
+body.trelabels .list-card-details {
+  padding-top: 0;
+}
+
+body.trelabels .list-card-labels .card-label {
+  height: inherit;
+  line-height: 1;
+  width: inherit;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin: 1px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: normal;
+  font-size: 10px;
+}
