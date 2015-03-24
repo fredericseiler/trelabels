@@ -1,5 +1,21 @@
+body .list-card-labels {
+  position: absolute;
+  margin: 0;
+  top: -1px;
+}
+
+body .list-card-labels .card-label {
+  border-radius: 0 0 3px 3px;
+  height: 4px;
+  width: 20px;
+}
+
 body.trelabels .list-card-details {
   padding-top: 0;
+}
+
+body.trelabels .list-card-labels {
+  position: relative;
 }
 
 body.trelabels .list-card-labels .card-label {
