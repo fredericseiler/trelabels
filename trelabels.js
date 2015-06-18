@@ -1,7 +1,7 @@
 $(function()
 {
   var button = '<a href="#" id="trelabels" class="header-btn"><span class="header-btn-icon icon-lg icon-label light"></span></a>';
-  $('head').append('<link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">');
+  $('head').append('<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">');
 
   function showLabels()
   {
