@@ -1,51 +1,166 @@
-$(function()
-{
-  var button = '<a href="#" id="trelabels" class="header-btn"><span class="header-btn-icon icon-lg icon-label light"></span></a>';
-  $('head').append('<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">');
+$(function() {
+  var font = '<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">';
 
-  function showLabels()
-  {
-    $('body:not(.trelabels)').addClass('trelabels');
-    $('#trelabels:not(.active)').addClass('active').attr('title', 'Hide label names');
-    if (typeof localStorage !== 'undefined') localStorage.setItem('trelabels', "1");
+  var button = '<a href="#" class="header-btn js-open-trelabels-menu" title="Change labels style">' +
+                  '<span class="header-btn-icon icon-lg icon-label light"></span>' +
+                '</a>';
+
+  var menu = '<div><ul class="pop-over-list">' +
+                '<li><a class="js-trelabels-change" data-style="default" href="#">' +
+                  'Default' +
+                  '<span class="sub-name">' +
+                    'The default Trello style without label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-trelabels-change" data-style="tag" href="#">' +
+                  'Tags' +
+                  '<span class="sub-name">' +
+                    'Similar to the Trello style but with label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-trelabels-change" data-style="line" href="#">' +
+                  'Lines' +
+                  '<span class="sub-name">' +
+                    'Full width lines with label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-trelabels-change" data-style="sticker" href="#">' +
+                  'Stickers' +
+                  '<span class="sub-name">' +
+                    'Small circles without label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-trelabels-change" data-style="tab" href="#">' +
+                  'Tabs' +
+                  '<span class="sub-name">' +
+                    'Very small tabs without label names.' +
+                  '</span>' +
+                '</a></li>' +
+              '</ul></div>';
+
+  var currentStyle = 'default';
+
+  $('head').append(font);
+
+  function changeStyle(newStyle) {
+    currentStyle = newStyle;
+
+    rememberStyle(newStyle);
+
+    $('body').removeClass(function(index, css) {
+      return (css.match (/(^|\s)trelabels-\S+/g) || []).join(' ');
+    });
+
+    if (newStyle === 'default') {
+      $('.js-open-trelabels-menu').removeClass('active');
+
+      return true;
+    }
+
+    $('body').addClass('trelabels-' + newStyle);
+
+    $('.js-open-trelabels-menu').addClass('active');
   }
 
-  function hideLabels()
-  {
-    $('body.trelabels').removeClass('trelabels');
-    $('#trelabels.active').removeClass('active').attr('title', 'Show label names');
-    if (typeof localStorage !== 'undefined') localStorage.setItem('trelabels', "0");
+  function rememberStyle(newStyle) {
+    if (typeof localStorage === 'undefined')
+      return true;
+
+    if (newStyle === 'default') {
+      localStorage.removeItem('trelabels-style');
+
+      return true;
+    }
+
+    localStorage.setItem('trelabels-style', newStyle);
   }
 
-  function rebuild()
-  {
-    if ($('#trelabels').length !== 0) return;
+  function getRememberedStyle() {
+    if (typeof localStorage === 'undefined')
+      return 'default';
 
-    $('.header-search').after(button);
+    previousStyle = localStorage.getItem('trelabels-style');
 
-    var trelabels = $('body').hasClass('trelabels');
-    if (typeof localStorage !== 'undefined') trelabels = localStorage.getItem('trelabels');
-    if (trelabels === "1") trelabels = true;
+    if ( ! previousStyle)
+      previousStyle = 'default';
 
-    if (trelabels === true)
-      showLabels();
-    else
-      hideLabels();
+    return previousStyle;
   }
 
-  var target = document.querySelector('body');
+  function rebuild() {
+    if ($('.js-open-trelabels-menu').length !== 0) return;
+
+    $('.header-search').before(button);
+
+    previousStyle = getRememberedStyle();
+
+    changeStyle(previousStyle);
+  }
+
+  function replacePopOver() {
+    var buttonOffset = $('.js-open-trelabels-menu').offset();
+    var buttonHeight = $('.js-open-trelabels-menu').height();
+
+    $('.pop-over').css({
+      top: buttonOffset.top + buttonHeight + 6,
+      left: buttonOffset.left,
+      width: 300
+    });
+  }
+
+  function showPopOver() {
+    replacePopOver();
+
+    $('.pop-over-header-title').text('Labels style');
+
+    $('.pop-over-content').html(menu);
+
+    // $('.js-trelabels-change').removeClass('active');
+
+    $('.js-trelabels-change[data-style="' + currentStyle + '"]').addClass('active');
+
+    $('.pop-over').addClass('pop-over-trelabels is-shown');
+  }
+
+  function hidePopOver() {
+    $('.pop-over-content').html('');
+
+    $('.pop-over').removeClass('pop-over-trelabels is-shown');
+  }
+
   var observer = new MutationObserver(function(mutations) {rebuild();});
+  var target = document.querySelector('body');
   var config = {attributes: true};
   observer.observe(target, config);
+
   rebuild();
 
-  $('body').on('click', '#trelabels', function()
-  {
-    if ($('#trelabels').hasClass('active'))
-      hideLabels();
-    else
-      showLabels();
+  $(window).on('resize', function() {
+    if ($('.pop-over-trelabels.is-shown').length)
+      replacePopOver();
+  });
+
+  $('body').on('click', '.js-open-trelabels-menu', function(e) {
+    e.stopPropagation();
+
+    showPopOver();
 
     return true;
+  });
+
+  $('body').on('click', function() {
+    $('.pop-over-trelabels.is-shown').removeClass('pop-over-trelabels is-shown');
+  });
+
+  $('body').on('click', '.pop-over-trelabels.is-shown', function(e) {
+      e.stopPropagation();
+  });
+
+  $('body').on('click', '.js-trelabels-change', function() {
+    newStyle = $(this).data('style');
+
+    changeStyle(newStyle);
+
+    hidePopOver();
   });
 });

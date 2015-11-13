@@ -1,24 +1,31 @@
-body .list-card-labels {
-  position: absolute;
-  margin: 0;
-  top: -1px;
+/* The Button */
+.js-open-trelabels-menu.active {
+  background: rgba(0, 0, 0, 0.1);
 }
 
-body .list-card-labels .card-label {
-  border-radius: 0 0 3px 3px;
-  height: 4px;
-  width: 20px;
+.js-open-trelabels-menu.active:hover {
+  background: rgba(0, 0, 0, 0.2);
 }
 
-body.trelabels .list-card-details {
+/* The Pop-Over */
+.pop-over-list li>a.active {
+  background-color: #eee;
+}
+
+.pop-over-list li>a.active:hover {
+  background-color: #298fca;
+}
+
+/* The Tags Style */
+.trelabels-tag .list-card-details {
   padding-top: 0;
 }
 
-body.trelabels .list-card-labels {
+.trelabels-tag .list-card-labels {
   position: relative;
 }
 
-body.trelabels .list-card-labels .card-label {
+.trelabels-tag .list-card-labels .card-label {
   height: inherit;
   line-height: 1;
   width: inherit;
@@ -27,12 +34,53 @@ body.trelabels .list-card-labels .card-label {
   margin: 6px 2px 1px 0;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
-#trelabels.active {
-  background: rgba(0, 0, 0, 0.1);
+/* The Lines Style */
+.trelabels-line .list-card-details {
+  padding-top: 0;
 }
-#trelabels.active:hover {
-  background: rgba(0, 0, 0, 0.2);
+
+.trelabels-line .list-card-labels {
+  position: relative;
+  margin: 8px 0 1px 0;
+}
+
+.trelabels-line .list-card-labels .card-label {
+  float: none;
+  display: block;
+  height: inherit;
+  line-height: 1;
+  width: inherit;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin: 0 0 2px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* The Stickers Style */
+.trelabels-sticker .list-card-labels {
+  /*margin: -2px 0;*/
+}
+
+.trelabels-sticker .list-card-labels .card-label {
+  border-radius: 50%;
+  height: 8px;
+  width: 8px;
+}
+
+/* The Tabs Style */
+.trelabels-tab .list-card-labels {
+  position: absolute;
+  margin: 0;
+  top: -1px;
+}
+
+.trelabels-tab .list-card-labels .card-label {
+  border-radius: 0 0 5px 5px;
+  height: 5px;
+  width: 20px;
 }
