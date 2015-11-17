@@ -1,10 +1,10 @@
 /* The Button */
-.js-open-trelabels-menu.active {
-  background: rgba(0, 0, 0, 0.1);
+.trelabels-btn.active {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
-.js-open-trelabels-menu.active:hover {
-  background: rgba(0, 0, 0, 0.2);
+.trelabels-btn.active:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* The Pop-Over */
@@ -62,10 +62,6 @@
 }
 
 /* The Stickers Style */
-.trelabels-sticker .list-card-labels {
-  /*margin: -2px 0;*/
-}
-
 .trelabels-sticker .list-card-labels .card-label {
   border-radius: 50%;
   height: 8px;

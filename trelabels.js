@@ -1,165 +1,177 @@
+var button = '<a href="#" class="header-btn trelabels-btn js-open-trelabels-menu" title="Change labels style">' +
+                '<span class="header-btn-icon icon-lg icon-label light"></span>' +
+              '</a>';
+
+var font = '<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">';
+
+var menu = '<div class="js-detach-trelabels-menu"><ul class="pop-over-list">' +
+              '<li><a class="js-change-trelabels-style" data-style="default" href="#">' +
+                'Default' +
+                '<span class="sub-name">' +
+                  'The default Trello style without label names.' +
+                '</span>' +
+              '</a></li>' +
+              '<li><a class="js-change-trelabels-style" data-style="tag" href="#">' +
+                'Tags' +
+                '<span class="sub-name">' +
+                  'Similar to the Trello style but with label names.' +
+                '</span>' +
+              '</a></li>' +
+              '<li><a class="js-change-trelabels-style" data-style="line" href="#">' +
+                'Lines' +
+                '<span class="sub-name">' +
+                  'Full width lines with label names.' +
+                '</span>' +
+              '</a></li>' +
+              '<li><a class="js-change-trelabels-style" data-style="sticker" href="#">' +
+                'Stickers' +
+                '<span class="sub-name">' +
+                  'Small circles without label names.' +
+                '</span>' +
+              '</a></li>' +
+              '<li><a class="js-change-trelabels-style" data-style="tab" href="#">' +
+                'Tabs' +
+                '<span class="sub-name">' +
+                  'Very small tabs without label names.' +
+                '</span>' +
+              '</a></li>' +
+            '</ul></div>';
+
+var popover;
+
+var style = 'default';
+
+function changeStyle(style) {
+  rememberStyle(style);
+
+  $('body').removeClass(function(index, css) {
+    return (css.match (/(^|\s)trelabels-\S+/g) || []).join(' ');
+  });
+
+  if (style === 'default') {
+    menu.removeClass('active');
+
+    return;
+  }
+
+  $('body').addClass('trelabels-' + style);
+
+  menu.addClass('active');
+}
+
+function getRememberedStyle() {
+  if (typeof localStorage === 'undefined') {
+    return style;
+  }
+
+  return localStorage.getItem('trelabels-style') || style;
+}
+
+function hidePopOver() {
+  if ( ! $('.pop-over-trelabels.is-shown').length) {
+    return;
+  }
+
+  menu.detach();
+
+  popover.removeClass('pop-over-trelabels is-shown');
+}
+
+function rebuild() {
+  if ( ! $.contains(document, button)) {
+    button.appendTo('.header-boards-button');
+  }
+}
+
+function rememberStyle(style) {
+  if (typeof localStorage === 'undefined') {
+    return;
+  }
+
+  if (style === 'default') {
+    localStorage.removeItem('trelabels-style');
+
+    return;
+  }
+
+  localStorage.setItem('trelabels-style', style);
+}
+
+function replacePopOver() {
+  if ( ! $('.pop-over-trelabels.is-shown').length) {
+    return;
+  }
+
+  var buttonOffset = button.offset();
+  var buttonHeight = button.height();
+
+  popover.css({
+    top: buttonOffset.top + buttonHeight + 6,
+    left: buttonOffset.left,
+    width: 300
+  });
+}
+
+function showPopOver() {
+  if ($('.pop-over-trelabels.is-shown').length) {
+    return;
+  }
+
+  menu.appendTo('.pop-over-content');
+
+  $('.js-change-trelabels-style').removeClass('active');
+  $('.js-change-trelabels-style[data-style="' + style + '"]').addClass('active');
+
+  $('.pop-over-header-title').text('Labels style');
+
+  popover.addClass('pop-over-trelabels is-shown');
+
+  replacePopOver();
+}
+
+function togglePopOver() {
+  if ($('.pop-over-trelabels.is-shown').length) {
+    return hidePopOver();
+  }
+
+  showPopOver();
+}
+
 $(function() {
-  var font = '<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">';
-
-  var button = '<a href="#" class="header-btn js-open-trelabels-menu" title="Change labels style">' +
-                  '<span class="header-btn-icon icon-lg icon-label light"></span>' +
-                '</a>';
-
-  var menu = '<div><ul class="pop-over-list">' +
-                '<li><a class="js-trelabels-change" data-style="default" href="#">' +
-                  'Default' +
-                  '<span class="sub-name">' +
-                    'The default Trello style without label names.' +
-                  '</span>' +
-                '</a></li>' +
-                '<li><a class="js-trelabels-change" data-style="tag" href="#">' +
-                  'Tags' +
-                  '<span class="sub-name">' +
-                    'Similar to the Trello style but with label names.' +
-                  '</span>' +
-                '</a></li>' +
-                '<li><a class="js-trelabels-change" data-style="line" href="#">' +
-                  'Lines' +
-                  '<span class="sub-name">' +
-                    'Full width lines with label names.' +
-                  '</span>' +
-                '</a></li>' +
-                '<li><a class="js-trelabels-change" data-style="sticker" href="#">' +
-                  'Stickers' +
-                  '<span class="sub-name">' +
-                    'Small circles without label names.' +
-                  '</span>' +
-                '</a></li>' +
-                '<li><a class="js-trelabels-change" data-style="tab" href="#">' +
-                  'Tabs' +
-                  '<span class="sub-name">' +
-                    'Very small tabs without label names.' +
-                  '</span>' +
-                '</a></li>' +
-              '</ul></div>';
-
-  var currentStyle = 'default';
+  button = $(button);
 
   $('head').append(font);
+  font = null;
 
-  function changeStyle(newStyle) {
-    currentStyle = newStyle;
+  menu = $(menu);
 
-    rememberStyle(newStyle);
+  popover = $('.pop-over');
 
-    $('body').removeClass(function(index, css) {
-      return (css.match (/(^|\s)trelabels-\S+/g) || []).join(' ');
-    });
-
-    if (newStyle === 'default') {
-      $('.js-open-trelabels-menu').removeClass('active');
-
-      return true;
-    }
-
-    $('body').addClass('trelabels-' + newStyle);
-
-    $('.js-open-trelabels-menu').addClass('active');
-  }
-
-  function rememberStyle(newStyle) {
-    if (typeof localStorage === 'undefined')
-      return true;
-
-    if (newStyle === 'default') {
-      localStorage.removeItem('trelabels-style');
-
-      return true;
-    }
-
-    localStorage.setItem('trelabels-style', newStyle);
-  }
-
-  function getRememberedStyle() {
-    if (typeof localStorage === 'undefined')
-      return 'default';
-
-    previousStyle = localStorage.getItem('trelabels-style');
-
-    if ( ! previousStyle)
-      previousStyle = 'default';
-
-    return previousStyle;
-  }
-
-  function rebuild() {
-    if ($('.js-open-trelabels-menu').length !== 0) return;
-
-    $('.header-search').before(button);
-
-    previousStyle = getRememberedStyle();
-
-    changeStyle(previousStyle);
-  }
-
-  function replacePopOver() {
-    var buttonOffset = $('.js-open-trelabels-menu').offset();
-    var buttonHeight = $('.js-open-trelabels-menu').height();
-
-    $('.pop-over').css({
-      top: buttonOffset.top + buttonHeight + 6,
-      left: buttonOffset.left,
-      width: 300
-    });
-  }
-
-  function showPopOver() {
-    replacePopOver();
-
-    $('.pop-over-header-title').text('Labels style');
-
-    $('.pop-over-content').html(menu);
-
-    // $('.js-trelabels-change').removeClass('active');
-
-    $('.js-trelabels-change[data-style="' + currentStyle + '"]').addClass('active');
-
-    $('.pop-over').addClass('pop-over-trelabels is-shown');
-  }
-
-  function hidePopOver() {
-    $('.pop-over-content').html('');
-
-    $('.pop-over').removeClass('pop-over-trelabels is-shown');
-  }
-
-  var observer = new MutationObserver(function(mutations) {rebuild();});
+  var observer = new MutationObserver(function(mutations) { rebuild() });
   var target = document.querySelector('body');
-  var config = {attributes: true};
+  var config = { attributes: true };
   observer.observe(target, config);
 
-  rebuild();
+  changeStyle(getRememberedStyle());
 
-  $(window).on('resize', function() {
-    if ($('.pop-over-trelabels.is-shown').length)
-      replacePopOver();
-  });
+  $(window).on('resize', replacePopOver);
 
-  $('body').on('click', '.js-open-trelabels-menu', function(e) {
-    e.stopPropagation();
+  $('html').on('click', function(e) {
+    if ($(e.target).parent().attr('class') === button.attr('class')) {
+      return togglePopOver();
+    }
 
-    showPopOver();
+    if ($(e.target).closest('.js-detach-trelabels-menu').length) {
+      style = $(e.target).data('style');
 
-    return true;
-  });
+      changeStyle(style);
 
-  $('body').on('click', function() {
-    $('.pop-over-trelabels.is-shown').removeClass('pop-over-trelabels is-shown');
-  });
+      return hidePopOver();
+    }
 
-  $('body').on('click', '.pop-over-trelabels.is-shown', function(e) {
-      e.stopPropagation();
-  });
-
-  $('body').on('click', '.js-trelabels-change', function() {
-    newStyle = $(this).data('style');
-
-    changeStyle(newStyle);
+    if ($(e.target).closest('.pop-over-trelabels.is-shown').length) {
+      return;
+    }
 
     hidePopOver();
   });
