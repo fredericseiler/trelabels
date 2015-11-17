@@ -49,14 +49,14 @@ function changeStyle(style) {
   });
 
   if (style === 'default') {
-    menu.removeClass('active');
+    button.removeClass('active');
 
     return;
   }
 
   $('body').addClass('trelabels-' + style);
 
-  menu.addClass('active');
+  button.addClass('active');
 }
 
 function getRememberedStyle() {
@@ -64,7 +64,10 @@ function getRememberedStyle() {
     return style;
   }
 
-  return localStorage.getItem('trelabels-style') || style;
+  if (localStorage.getItem('trelabels-style'))
+    style = localStorage.getItem('trelabels-style');
+
+  return style;
 }
 
 function hidePopOver() {
@@ -85,12 +88,6 @@ function rebuild() {
 
 function rememberStyle(style) {
   if (typeof localStorage === 'undefined') {
-    return;
-  }
-
-  if (style === 'default') {
-    localStorage.removeItem('trelabels-style');
-
     return;
   }
 
@@ -147,7 +144,7 @@ $(function() {
 
   popover = $('.pop-over');
 
-  var observer = new MutationObserver(function(mutations) { rebuild() });
+  var observer = new MutationObserver(function(mutations) { rebuild(); });
   var target = document.querySelector('body');
   var config = { attributes: true };
   observer.observe(target, config);
@@ -162,7 +159,7 @@ $(function() {
     }
 
     if ($(e.target).closest('.js-detach-trelabels-menu').length) {
-      style = $(e.target).data('style');
+      style = $(e.target).closest('.js-change-trelabels-style').data('style');
 
       changeStyle(style);
 
