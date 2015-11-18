@@ -1,29 +1,15 @@
 /* The Button */
-.trelabels-btn.active {
-  background: rgba(0, 0, 0, 0.1);
-}
+.trelabels-btn.active { background: rgba(0, 0, 0, 0.1); }
 
-.trelabels-btn.active:hover {
-  background: rgba(0, 0, 0, 0.2);
-}
+.trelabels-btn.active:hover { background: rgba(0, 0, 0, 0.2); }
 
 /* The Pop-Over */
-.pop-over-list li>a.active {
-  background-color: #eee;
-}
+.pop-over-list li>a.active { background-color: #eee; }
 
-.pop-over-list li>a.active:hover {
-  background-color: #298fca;
-}
+.pop-over-list li>a.active:hover { background-color: #298fca; }
 
 /* The Tags Style */
-.trelabels-tag .list-card-details {
-  padding-top: 0;
-}
-
-.trelabels-tag .list-card-labels {
-  position: relative;
-}
+.trelabels-tag .list-card-labels { margin: 0; }
 
 .trelabels-tag .list-card-labels .card-label {
   height: inherit;
@@ -31,21 +17,14 @@
   width: inherit;
   padding: 2px 4px;
   border-radius: 3px;
-  margin: 6px 2px 1px 0;
+  margin: 0 2px 3px 0;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
 /* The Lines Style */
-.trelabels-line .list-card-details {
-  padding-top: 0;
-}
-
-.trelabels-line .list-card-labels {
-  position: relative;
-  margin: 8px 0 1px 0;
-}
+.trelabels-line .list-card-labels { margin: 0; }
 
 .trelabels-line .list-card-labels .card-label {
   float: none;
@@ -55,7 +34,7 @@
   width: inherit;
   padding: 2px 4px;
   border-radius: 3px;
-  margin: 0 0 2px 0;
+  margin: 0 0 3px 0;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
@@ -70,9 +49,8 @@
 
 /* The Tabs Style */
 .trelabels-tab .list-card-labels {
-  position: absolute;
   margin: 0;
-  top: -1px;
+  top: -6px;
 }
 
 .trelabels-tab .list-card-labels .card-label {

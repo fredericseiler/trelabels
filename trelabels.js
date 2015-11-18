@@ -43,37 +43,33 @@ var style = 'default';
 
 function changeStyle(style) {
   rememberStyle(style);
-
-  $('body').removeClass(function(index, css) {
+  $('body').removeClass(function (index, css) {
     return (css.match (/(^|\s)trelabels-\S+/g) || []).join(' ');
   });
 
   if (style === 'default') {
     button.removeClass('active');
 
-    return;
+    return style;
   }
 
   $('body').addClass('trelabels-' + style);
 
   button.addClass('active');
-}
-
-function getRememberedStyle() {
-  if (typeof localStorage === 'undefined') {
-    return style;
-  }
-
-  if (localStorage.getItem('trelabels-style'))
-    style = localStorage.getItem('trelabels-style');
 
   return style;
 }
 
+function getRememberedStyle() {
+  if (typeof localStorage === 'undefined') return style;
+
+  if (localStorage.getItem('trelabels.style') === null) return style;
+
+  return localStorage.getItem('trelabels.style');
+}
+
 function hidePopOver() {
-  if ( ! $('.pop-over-trelabels.is-shown').length) {
-    return;
-  }
+  if ( ! $('.pop-over-trelabels.is-shown').length) return;
 
   menu.detach();
 
@@ -81,25 +77,22 @@ function hidePopOver() {
 }
 
 function rebuild() {
-  if ( ! $.contains(document, button)) {
-    button.appendTo('.header-boards-button');
-  }
+  if ($.contains(document, button)) return;
+
+  button.appendTo('.header-boards-button');
 }
 
 function rememberStyle(style) {
-  if (typeof localStorage === 'undefined') {
-    return;
-  }
+  if (typeof localStorage === 'undefined') return;
 
-  localStorage.setItem('trelabels-style', style);
+  localStorage.setItem('trelabels.style', style);
 }
 
 function replacePopOver() {
-  if ( ! $('.pop-over-trelabels.is-shown').length) {
-    return;
-  }
+  if ( ! $('.pop-over-trelabels.is-shown').length) return;
 
   var buttonOffset = button.offset();
+
   var buttonHeight = button.height();
 
   popover.css({
@@ -110,13 +103,12 @@ function replacePopOver() {
 }
 
 function showPopOver() {
-  if ($('.pop-over-trelabels.is-shown').length) {
-    return;
-  }
+  if ($('.pop-over-trelabels.is-shown').length) return;
 
   menu.appendTo('.pop-over-content');
 
   $('.js-change-trelabels-style').removeClass('active');
+
   $('.js-change-trelabels-style[data-style="' + style + '"]').addClass('active');
 
   $('.pop-over-header-title').text('Labels style');
@@ -127,36 +119,30 @@ function showPopOver() {
 }
 
 function togglePopOver() {
-  if ($('.pop-over-trelabels.is-shown').length) {
-    return hidePopOver();
-  }
+  if ($('.pop-over-trelabels.is-shown').length) return hidePopOver();
 
   showPopOver();
 }
 
-$(function() {
+$(function () {
+
   button = $(button);
 
   $('head').append(font);
-  font = null;
 
   menu = $(menu);
 
   popover = $('.pop-over');
 
-  var observer = new MutationObserver(function(mutations) { rebuild(); });
-  var target = document.querySelector('body');
-  var config = { attributes: true };
-  observer.observe(target, config);
+  new MutationObserver(function (mutations) { rebuild(); })
+    .observe(document.querySelector('body'), { attributes: true });
 
-  changeStyle(getRememberedStyle());
+  style = changeStyle(getRememberedStyle());
 
   $(window).on('resize', replacePopOver);
 
-  $('html').on('click', function(e) {
-    if ($(e.target).parent().attr('class') === button.attr('class')) {
-      return togglePopOver();
-    }
+  $('html').on('click', function (e) {
+    if ($(e.target).parent().attr('class') === button.attr('class')) return togglePopOver();
 
     if ($(e.target).closest('.js-detach-trelabels-menu').length) {
       style = $(e.target).closest('.js-change-trelabels-style').data('style');
@@ -166,9 +152,7 @@ $(function() {
       return hidePopOver();
     }
 
-    if ($(e.target).closest('.pop-over-trelabels.is-shown').length) {
-      return;
-    }
+    if ($(e.target).closest('.pop-over-trelabels.is-shown').length) return;
 
     hidePopOver();
   });
