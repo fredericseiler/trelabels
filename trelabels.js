@@ -4,38 +4,44 @@ var button = '<a href="#" class="header-btn trelabels-btn js-open-trelabels-menu
 
 var font = '<link href="//fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet" type="text/css">';
 
-var menu = '<div class="js-detach-trelabels-menu"><ul class="pop-over-list">' +
-              '<li><a class="js-change-trelabels-style" data-style="default" href="#">' +
-                'Default' +
-                '<span class="sub-name">' +
-                  'The default Trello style without label names.' +
-                '</span>' +
-              '</a></li>' +
-              '<li><a class="js-change-trelabels-style" data-style="tag" href="#">' +
-                'Tags' +
-                '<span class="sub-name">' +
-                  'Similar to the Trello style but with label names.' +
-                '</span>' +
-              '</a></li>' +
-              '<li><a class="js-change-trelabels-style" data-style="line" href="#">' +
-                'Lines' +
-                '<span class="sub-name">' +
-                  'Full width lines with label names.' +
-                '</span>' +
-              '</a></li>' +
-              '<li><a class="js-change-trelabels-style" data-style="sticker" href="#">' +
-                'Stickers' +
-                '<span class="sub-name">' +
-                  'Small circles without label names.' +
-                '</span>' +
-              '</a></li>' +
-              '<li><a class="js-change-trelabels-style" data-style="tab" href="#">' +
-                'Tabs' +
-                '<span class="sub-name">' +
-                  'Very small tabs without label names.' +
-                '</span>' +
-              '</a></li>' +
-            '</ul></div>';
+var menu =  '<div class="pop-over-header js-pop-over-header">' +
+              '<span class="pop-over-header-title">Trelabels</span>' +
+              '<a href="#" class="pop-over-header-close-btn icon-sm icon-close js-close-trelabels-popover"></a>' +
+            '</div>' +
+            '<div class="pop-over-content js-pop-over-content u-fancy-scrollbar js-tab-parent">' +
+              '<div class="js-detach-trelabels-menu"><ul class="pop-over-list">' +
+                '<li><a class="js-change-trelabels-style" data-style="default" href="#">' +
+                  'Default' +
+                  '<span class="sub-name">' +
+                    'The default Trello style without label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-change-trelabels-style" data-style="tag" href="#">' +
+                  'Tags' +
+                  '<span class="sub-name">' +
+                    'Similar to the Trello style but with label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-change-trelabels-style" data-style="line" href="#">' +
+                  'Lines' +
+                  '<span class="sub-name">' +
+                    'Full width lines with label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-change-trelabels-style" data-style="sticker" href="#">' +
+                  'Stickers' +
+                  '<span class="sub-name">' +
+                    'Small circles without label names.' +
+                  '</span>' +
+                '</a></li>' +
+                '<li><a class="js-change-trelabels-style" data-style="tab" href="#">' +
+                  'Tabs' +
+                  '<span class="sub-name">' +
+                    'Very small tabs without label names.' +
+                  '</span>' +
+                '</a></li>' +
+              '</ul></div>' +
+            '</div>';
 
 var popover;
 
@@ -105,13 +111,13 @@ function replacePopOver() {
 function showPopOver() {
   if ($('.pop-over-trelabels.is-shown').length) return;
 
-  menu.appendTo('.pop-over-content');
+  menu.appendTo(popover);
 
   $('.js-change-trelabels-style').removeClass('active');
 
   $('.js-change-trelabels-style[data-style="' + style + '"]').addClass('active');
 
-  $('.pop-over-header-title').text('Labels style');
+  // $('.pop-over-header-title').text('Labels style');
 
   popover.addClass('pop-over-trelabels is-shown');
 
@@ -133,6 +139,10 @@ $(function () {
   menu = $(menu);
 
   popover = $('.pop-over');
+
+  popover.on('click', '.js-close-trelabels-popover', function() {
+    hidePopOver();
+  });
 
   new MutationObserver(function (mutations) { rebuild(); })
     .observe(document.querySelector('body'), { attributes: true });
