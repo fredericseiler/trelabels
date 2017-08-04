@@ -27,11 +27,13 @@
   height: inherit;
   line-height: 1;
   width: inherit;
+  max-width: 100%;
   padding: 2px 4px;
   border-radius: 3px;
   margin: 0 0 3px 0;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
+  text-align: left;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -40,6 +42,10 @@
   border-radius: 50%;
   height: 8px;
   width: 8px;
+  min-height: 8px;
+  min-width: 8px;
+  max-height: 8px;
+  max-width: 8px;
 }
 
 /* The Tabs Style */
@@ -52,6 +58,7 @@
   border-radius: 0 0 5px 5px;
   height: 5px;
   width: 20px;
+  min-width: 20px;
 }
 
 /* The Tags Style */
@@ -63,6 +70,7 @@
   height: inherit;
   line-height: 1;
   width: inherit;
+  max-width: 100%;
   padding: 2px 4px;
   border-radius: 3px;
   margin: 0 2px 3px 0;
