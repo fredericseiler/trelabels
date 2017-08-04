@@ -8,7 +8,7 @@ This extension adds a button to change the labels style on any Trello board.
 
 - 5 styles available (including Trello's default)
 - Persistent settings
-- Compatible with all other Trello extensions (like CardCounter for Trello, Scrum for Trello, Trellists, Plus for Trello, etc)
+- Compatible with all other Trello extensions (like Elegantt, Plus, CardCounter, Scrum, Trellists, etc)
 
 ## Styles
 
