@@ -70,7 +70,8 @@
   height: inherit;
   line-height: 1;
   width: inherit;
-  max-width: 100%;
+  min-width: inherit;
+  max-width: 230px;
   padding: 2px 4px;
   border-radius: 3px;
   margin: 0 2px 3px 0;
