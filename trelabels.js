@@ -78,8 +78,23 @@ function keepTrelabelsButton() {
     });
 }
 
+function init() {
+  if ($('.header-boards-button').length === 0) {
+    setTimeout(init, 500);
+    
+    return;
+  }
+  
+  $('head').append(font);
+  addTrelabelsButton();
+  keepTrelabelsButton();
+  setStyle(getStyle());
+  listenForClick();
+  listenForResize();
+}
+
 function listenForClick() {
-  $('html').on('click', function (e) {
+  $(document).on('click', function (e) {
     // Click on Trelabels button (icon)
     if ($(e.target).parent().hasClass('trelabels-btn')) {
       return togglePopOver();
@@ -195,10 +210,5 @@ function setStyle(newStyle) {
 }
 
 $(function () {
-  $('head').append(font);
-  addTrelabelsButton();
-  keepTrelabelsButton();
-  setStyle(getStyle());
-  listenForResize();
-  listenForClick();
+  init();
 });
