@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Trelabels for Trello",
   "short_name": "Trelabels",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Change the labels style on Trello boards.",
   "icons": {
     "16": "icon16.png",

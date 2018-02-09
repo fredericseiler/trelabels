@@ -68,28 +68,33 @@ function addTrelabelsButton() {
     return;
   }
 
+  if ($('.header-boards-button').length === 0) {
+    setTimeout(addTrelabelsButton, 1000);
+    
+    return;
+  }
+
   $(button).appendTo('.header-boards-button');
+
+  setStyle(getStyle());
 }
 
 function keepTrelabelsButton() {
   new MutationObserver(addTrelabelsButton)
-    .observe(document.querySelector('body'), {
-      attributes: true
+    .observe(document.querySelector('#header'), {
+      childList: true
     });
 }
 
 function init() {
-  if ($('.header-boards-button').length === 0) {
-    setTimeout(init, 500);
-    
-    return;
-  }
-  
   $('head').append(font);
+
   addTrelabelsButton();
+
   keepTrelabelsButton();
-  setStyle(getStyle());
+
   listenForClick();
+
   listenForResize();
 }
 
