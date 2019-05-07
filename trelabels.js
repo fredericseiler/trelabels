@@ -68,13 +68,13 @@ function addTrelabelsButton() {
     return;
   }
 
-  if ($('.header-boards-button').length === 0) {
+  if ($('#header').length === 0) {
     setTimeout(addTrelabelsButton, 1000);
     
     return;
   }
-
-  $(button).appendTo('.header-boards-button');
+  
+  $('#header').find('input[type="search"]').parent().prepend(button);
 
   setStyle(getStyle());
 }
@@ -214,6 +214,6 @@ function setStyle(newStyle) {
   style = newStyle;
 }
 
-$(function () {
+$(window).on('load', function() {
   init();
 });
