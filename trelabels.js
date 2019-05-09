@@ -67,14 +67,8 @@ function addTrelabelsButton() {
   if ($('.trelabels-btn').length) {
     return;
   }
-
-  if ($('#header').length === 0) {
-    setTimeout(addTrelabelsButton, 1000);
-    
-    return;
-  }
   
-  $('#header').find('input[type="search"]').parent().prepend(button);
+  $('#header').find('input').parent().prepend(button);
 
   setStyle(getStyle());
 }
@@ -87,6 +81,13 @@ function keepTrelabelsButton() {
 }
 
 function init() {
+	
+  if ($('#header').length === 0) {
+    setTimeout(init, 1000);
+    
+    return;
+  }
+	
   $('head').append(font);
 
   addTrelabelsButton();
@@ -214,6 +215,6 @@ function setStyle(newStyle) {
   style = newStyle;
 }
 
-$(window).on('load', function() {
+$(function () {
   init();
 });
