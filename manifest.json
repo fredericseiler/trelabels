@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"],
-      "js": ["jquery-3.3.1.slim.min.js", "trelabels.js"],
+      "js": ["jquery-3.4.1.slim.min.js", "trelabels.js"],
       "css": ["trelabels.css"],
       "run_at": "document_end"
     }

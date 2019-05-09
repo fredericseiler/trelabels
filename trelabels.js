@@ -67,7 +67,7 @@ function addTrelabelsButton() {
   if ($('.trelabels-btn').length) {
     return;
   }
-  
+
   $('#header').find('input').parent().prepend(button);
 
   setStyle(getStyle());
@@ -81,13 +81,12 @@ function keepTrelabelsButton() {
 }
 
 function init() {
-	
   if ($('#header').length === 0) {
     setTimeout(init, 1000);
-    
+
     return;
   }
-	
+
   $('head').append(font);
 
   addTrelabelsButton();
