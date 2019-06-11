@@ -37,6 +37,10 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
 
+.trelabels-line .list-card-labels .label-text {
+  display: initial !important;
+}
+
 /* The Stickers Style */
 .trelabels-sticker .list-card-labels .card-label {
   border-radius: 50%;
@@ -78,4 +82,8 @@
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.trelabels-tag .list-card-labels .label-text {
+  display: initial !important;
 }
