@@ -98,6 +98,7 @@
 .trelabels-sticker .list-card-labels .card-label {
   border-radius: 50%;
   height: 8px;
+  margin: 0 4px 2px 0;
   max-height: 8px;
   max-width: 8px;
   min-height: 8px;
@@ -113,9 +114,10 @@
 
 .trelabels-tab .list-card-labels .card-label {
   border-radius: 0 0 5px 5px;
-  height: 5px;
-  width: 20px;
-  min-width: 20px;
+  height: 4px;
+  margin: 0 4px 0 0;
+  min-width: 10px;
+  width: 10px;
 }
 
 /* The Tags Style */
