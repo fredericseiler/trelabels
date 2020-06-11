@@ -1,6 +1,6 @@
 var button = `
-<a href="#" class="header-btn trelabels-btn js-open-trelabels-menu" title="Change labels style">
-  <span class="header-btn-icon icon-lg icon-label light"></span>
+<a href="#" class="trelabels-btn js-open-trelabels-menu" title="Change labels style">
+  <span class="trelabels-btn-icon"></span>
 </a>
 `;
 
@@ -68,7 +68,7 @@ function addTrelabelsButton() {
     return;
   }
 
-  $('#header').find('input').parent().prepend(button);
+  $(button).insertBefore($('#header').find('input[type="search"]').parent());
 
   setStyle(getStyle());
 }
@@ -201,14 +201,14 @@ function setStyle(newStyle) {
     localStorage.setItem('trelabels.style', newStyle);
   }
 
-  $('body').removeClass('trelabels-line trelabels-sticker trelabels-tab trelabels-tag');
+  $('body').removeClass('trelabels-enabled trelabels-line trelabels-sticker trelabels-tab trelabels-tag');
 
   if (newStyle === 'default') {
     $('.trelabels-btn').removeClass('active');
   } else {
     $('.trelabels-btn').addClass('active');
 
-    $('body').addClass('trelabels-' + newStyle);
+    $('body').addClass('trelabels-enabled trelabels-' + newStyle);
   }
 
   style = newStyle;

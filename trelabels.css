@@ -1,19 +1,72 @@
 /* The Pop-Over */
 .pop-over-list li>a.active {
-  background-color: #eee;
+  background-color: rgba(9,30,66,.08);
 }
 
 .pop-over-list li>a.active:hover {
-  background-color: #298fca;
+  background-color: rgba(9,30,66,.04);
 }
 
 /* The Button */
+.trelabels-btn {
+  border-radius: 3px;
+  border: 0;
+  cursor: pointer;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Droid Sans,Helvetica Neue,sans-serif;
+  text-decoration: none;
+  align-items: center;
+  background-color: hsla(0, 0%, 100%, .3);
+  box-shadow: none;
+  color: #fff;
+  display: flex;
+  font-weight: 700;
+  height: 32px;
+  line-height: 32px;
+  margin: 0 4px 0 0;
+  padding: 0;
+  transition: .1s ease;
+  white-space: nowrap;
+}
+
+.trelabels-btn:focus, .trelabels-btn:hover {
+  background-color: hsla(0, 0%, 100%, .2);
+  box-shadow: none;
+  color: #fff;
+}
+
 .trelabels-btn.active {
-  background: rgba(0, 0, 0, 0.1);
+  background-color: hsla(0, 0%, 100%, .1);
 }
 
 .trelabels-btn.active:hover {
-  background: rgba(0, 0, 0, 0.2);
+  background-color: hsla(0, 0%, 100%, .2);
+}
+
+.trelabels-btn-icon {
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  display: inline-block;
+  font-family: trellicons;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  height: 32px;
+  line-height: 1;
+  line-height: 32px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: bottom;
+  width: 32px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.trelabels-btn-icon:before {
+    content: "\E93B";
+}
+
+/* The Labels */
+.trelabels-enabled .list-card-labels .card-label {
+  pointer-events: none;
 }
 
 /* The Lines Style */
@@ -22,19 +75,19 @@
 }
 
 .trelabels-line .list-card-labels .card-label {
-  float: none;
-  display: block;
-  height: inherit;
-  line-height: 1;
-  width: inherit;
-  max-width: 100%;
-  padding: 2px 4px;
   border-radius: 3px;
-  margin: 0 0 3px 0;
+  display: block;
+  float: none;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
+  height: inherit;
+  line-height: 1;
+  margin: 0 0 3px 0;
+  max-width: 100%;
+  padding: 2px 4px;
   text-align: left;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 0 2px hsla(0, 0%, 0%, .3);
+  width: inherit;
 }
 
 .trelabels-line .list-card-labels .label-text {
@@ -45,11 +98,11 @@
 .trelabels-sticker .list-card-labels .card-label {
   border-radius: 50%;
   height: 8px;
-  width: 8px;
-  min-height: 8px;
-  min-width: 8px;
   max-height: 8px;
   max-width: 8px;
+  min-height: 8px;
+  min-width: 8px;
+  width: 8px;
 }
 
 /* The Tabs Style */
@@ -71,17 +124,17 @@
 }
 
 .trelabels-tag .list-card-labels .card-label {
-  height: inherit;
-  line-height: 1;
-  width: inherit;
-  min-width: inherit;
-  max-width: 230px;
-  padding: 2px 4px;
   border-radius: 3px;
-  margin: 0 2px 3px 0;
   font-family: 'Roboto', sans-serif;
   font-size: 10px;
-  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  height: inherit;
+  line-height: 1;
+  margin: 0 2px 3px 0;
+  max-width: 230px;
+  min-width: inherit;
+  padding: 2px 4px;
+  text-shadow: 0 0 2px hsla(0, 0%, 0%, .3);
+  width: inherit;
 }
 
 .trelabels-tag .list-card-labels .label-text {
