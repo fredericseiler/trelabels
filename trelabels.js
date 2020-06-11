@@ -43,7 +43,7 @@ var popOverWrapper = `
           <a class="js-change-trelabels-style" data-style="sticker" href="#">
             Stickers
             <span class="sub-name">
-              'Small circles without label names.
+              Small circles without label names.
             </span>
           </a>
         </li>
