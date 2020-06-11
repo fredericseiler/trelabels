@@ -11,9 +11,16 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://trello.com/*"],
-      "js": ["jquery-3.4.1.slim.min.js", "trelabels.js"],
-      "css": ["trelabels.css"],
+      "matches": [
+        "https://trello.com/*"
+      ],
+      "js": [
+        "jquery-3.5.1.slim.min.js",
+        "trelabels.js"
+      ],
+      "css": [
+        "trelabels.css"
+      ],
       "run_at": "document_end"
     }
   ]
