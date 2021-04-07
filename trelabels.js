@@ -68,7 +68,7 @@ function addTrelabelsButton() {
     return;
   }
 
-  $(button).insertBefore($('#header').find('input[type="search"]').parent());
+  $('button[data-test-id="header-boards-menu-button"]').after(button);
 
   setStyle(getStyle());
 }
